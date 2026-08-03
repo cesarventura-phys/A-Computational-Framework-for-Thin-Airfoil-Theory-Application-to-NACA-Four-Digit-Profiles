@@ -1,4 +1,4 @@
-# Thin Airfoil Solver
+# Thin Airfoil NACA Four-Digit Solver
 
 A Python implementation of classical **linearized thin-airfoil theory** for NACA
 4-digit cambered airfoils. Given a camber distribution and an angle of attack, the
