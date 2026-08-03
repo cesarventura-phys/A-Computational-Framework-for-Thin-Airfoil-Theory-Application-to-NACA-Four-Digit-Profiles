@@ -6,9 +6,6 @@ solver computes the bound vortex sheet strength via a Glauert (Fourier) expansio
 integrates the induced velocity field with Biot–Savart, and visualizes the
 resulting pressure coefficient and streamline pattern.
 
-<p align="center">
-  <img src="flow_field.png" width="800" alt="Pressure coefficient and streamline plots">
-</p>
 
 ## Features
 
