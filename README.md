@@ -103,18 +103,3 @@ Circulation: Γ = 0.388053
   point-by-point on the grid, so increasing `NX`/`NY` significantly will slow
   down `main.py`.
 
-## Notes on numerical fixes
-
-The stream function `ψ` is reconstructed from `(u, v)` by integrating
-`∂ψ/∂y = u` up each grid column and `∂ψ/∂x = -v` along the bottom row, in that
-order — both derivatives are needed to get the correct starting value at the
-base of each column. Integrating with `u` alone (holding the bottom-row value
-fixed at zero for every column) silently drops the part of `ψ` that encodes
-the freestream tilt, and produces streamlines that stay horizontal regardless
-of the angle of attack. This was caught by testing `compute_streamfunction`
-against the exact analytic stream function of a uniform flow at a nonzero
-angle of attack, and is fixed in `visualize.py`.
-
-## License
-
-Add a license of your choice (e.g. MIT) before publishing.
