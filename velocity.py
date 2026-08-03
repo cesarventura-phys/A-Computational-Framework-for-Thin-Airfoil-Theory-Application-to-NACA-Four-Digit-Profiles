@@ -24,33 +24,15 @@ def theta_of_x(x, c=1.0):
 def induced_velocity(x, y, V_inf, c, A, epsabs=1e-8, epsrel=1e-6):
     """
     Compute induced velocity at a field point (x, y) using Biot-Savart.
-    
-    Parameters
-    ----------
-    x, y : float
-        Field point coordinates
-    V_inf : float
-        Freestream velocity
-    c : float
-        Chord length
-    A : np.ndarray
-        Fourier coefficients [A0, A1, ...]
-    epsabs, epsrel : float
-        Integration tolerances for quad
-    
-    Returns
-    -------
-    tuple (u_ind, v_ind)
-        Induced velocity components
     """
-    # If exactly on the chord line, return (0,0) to avoid singularity
+    # If exactly on the chord line, perturb y slightly to avoid singularity
     if abs(y) < 1e-14:
-        return 0.0, 0.0
+        y = 1e-14 * (1.0 if y >= 0 else -1.0)
     
     def integrand_u(theta):
         xi = x_of_theta(theta, c)
         r2 = (x - xi)**2 + y**2
-        gamma_sin = gamma_theta_safe(theta, V_inf, A)  # γ(θ)*sin(θ)
+        gamma_sin = gamma_theta_safe(theta, V_inf, A)
         return gamma_sin * y / r2 * (c/2) / (2*np.pi)
     
     def integrand_v(theta):
@@ -61,7 +43,6 @@ def induced_velocity(x, y, V_inf, c, A, epsabs=1e-8, epsrel=1e-6):
     
     u, _ = quad(integrand_u, 0, np.pi, epsabs=epsabs, epsrel=epsrel)
     v, _ = quad(integrand_v, 0, np.pi, epsabs=epsabs, epsrel=epsrel)
-    
     return u, v
 
 # ------------------------------------------------------------

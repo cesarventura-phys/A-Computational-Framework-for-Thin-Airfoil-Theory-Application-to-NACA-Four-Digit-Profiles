@@ -57,9 +57,12 @@ print("Field computation complete.")
 # ------------------------------------------------------------
 print("Creating visualizations...")
 
-# Generate points for the camber line
+# Generate points for the camber line (only if cambered)
 x_camber = np.linspace(0, C, 200)
-y_camber_vals = y_camber(x_camber, C, M, P)
+if M > 0:
+    y_camber_vals = y_camber(x_camber, C, M, P)
+else:
+    y_camber_vals = np.zeros_like(x_camber)   # symmetric airfoil: no camber
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
 
